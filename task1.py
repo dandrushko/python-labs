@@ -1,43 +1,26 @@
-def calculate_sell(sell):
-    """
-    Обчислює загальний дохід для кожного продукту.
-    Args:
-        продажі: Список словників, де кожен словник представляє продаж з ключами "продукт", "кількість", "ціна".
-    Returns:
-        Словник, де ключі - це назви продуктів, а значення - загальний дохід.
-    """
-    total_value = {}
-    for item in sell:
-        good_name = item["продукт"]
-        quantity = item["кількість"]
-        price = item["ціна"]
-        value = quantity * price
-        if good_name in total_value:
-            total_value[good_name] += value
-        else:
-            total_value[good_name] = value
-    return total_value
+# 1. Отримати курси евро за попередній тиждень, вивести на екран дату + курс
+# 2. З отриманого словника побудувати графк зміни курсу за тиждень
+import json
+import requests
 
-# Приклад використання
-sell = [
-    {"продукт": "яблуко", "кількість": 10, "ціна": 5},
-    {"продукт": "банан", "кількість": 20, "ціна": 3},
-    {"продукт": "яблуко", "кількість": 5, "ціна": 5},
-    {"продукт": "яблуко", "кількість": 50, "ціна": 100},
-    {"продукт": "апельсин", "кількість": 15, "ціна": 4},
-    {"продукт": "банан", "кількість": 100, "ціна": 10}
-]
+# URL for request https://bank.gov.ua/NBU_Exchange/exchange_site?start=20250317&end=20250321&valcode=eur&json
+response_data = requests.get("https://bank.gov.ua/NBU_Exchange/exchange_site?start=20250317&end=20250321&valcode=eur&json")
 
-total_sell_value = calculate_sell(sell)
-print("Загальний дохід за продуктом:", total_sell_value)
+response_list = json.loads(response_data.content)
 
-# Створення списку продуктів, що принесли дохід більший ніж 1000
-list_for_goods = []
+exchange_date = []
+exchange_rate = []
+# Logic to extract data from NBU service response
 
-for good in total_sell_value:
-    print("key:", good)
-    print("value", total_sell_value[good])
-    if total_sell_value[good] > 1000:
-        list_for_goods.append(good)
 
-print("Продукти з доходом більше 1000:", list_for_goods)
+### Part 2
+# Matplotlib
+# import matplotlib.pyplot as plt
+#
+# plt.plot(exchange_date, exchange_rate)
+# plt.show()
+
+
+
+
+
